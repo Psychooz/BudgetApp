@@ -1,0 +1,15 @@
+<!-- templates/expenses/add_income.html -->
+
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+{% block title %}Add Income{% endblock %}
+
+{% block content %}
+<h2>Add Income</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <button type="submit" class="btn btn-success">Add Income</button>
+</form>
+{% endblock %}

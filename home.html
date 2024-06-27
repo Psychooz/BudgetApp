@@ -1,0 +1,48 @@
+<!-- templates/expenses/index.html -->
+
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<h2>Welcome, {{ user.username }}</h2>
+<h3>Your Balance: ${{ user.balance }}</h3>
+<hr>
+
+<div class="container">
+    <h2>History</h2>
+    <table class="table table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th>Date</th>
+                <th>Category</th>
+                <th>Amount</th>
+                <th>Description</th>
+                <th>Type</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for transaction in transactions %}
+            <tr class="table-danger">
+                <td>{{ transaction.date }}</td>
+                <td>{{ transaction.category.name }}</td>
+                <td>{{ transaction.amount }}</td>
+                <td>{{ transaction.description }}</td>
+                <td>Transaction (-)</td>
+            </tr>
+            {% endfor %}
+            {% for income in incomes %}
+            <tr class="table-success">
+                <td>{{ income.date }}</td>
+                <td>{{ income.category.name }}</td>
+                <td>{{ income.amount }}</td>
+                <td>{{ income.description }}</td>
+                <td>Income (+)</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{% url 'add_transaction' %}" class="btn btn-primary">Add Transaction</a>
+    <a href="{% url 'add_income' %}" class="btn btn-success">Add Income</a>
+</div>
+{% endblock %}

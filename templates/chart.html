@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block title %}Financial Overview{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>Financial Overview</h2>
+    <hr>
+    
+    <div style="width: 80%; margin: auto;">
+        <canvas id="myChart"></canvas>
+    </div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        fetch('{% url "chart_data" %}')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.error) {
+                    console.error('Data error:', data.error);
+                    return;
+                }
+
+                var ctx = document.getElementById('myChart').getContext('2d');
+                var myChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: data.labels,
+                        datasets: [{
+                            label: 'Total Transactions',
+                            data: data.transaction_totals,
+                            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                            borderColor: 'rgba(255, 99, 132, 1)',
+                            borderWidth: 1,
+                            fill: false
+                        }, {
+                            label: 'Total Income',
+                            data: data.income_totals,
+                            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                            borderColor: 'rgba(54, 162, 235, 1)',
+                            borderWidth: 1,
+                            fill: false
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            })
+            .catch(error => {
+                console.error('Fetch error:', error);
+            });
+    });
+</script>
+{% endblock %}
