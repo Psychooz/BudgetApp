@@ -14,8 +14,8 @@ The Expense Tracker app is designed to help users manage their finances by track
 - Balance Calculation: The app automatically calculates and updates the user's balance based on their transactions and incomes.
 ## installation
    ```bash
-   git clone https://github.com/your_username/expense-tracker.git
-   cd expense-trackerProvide
+   git clone https://github.com/Psychooz/BudgetApp.git
+   cd BudgetApp
 ```
 Install dependencies:
 ```python
