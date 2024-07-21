@@ -19,7 +19,7 @@ The Expense Tracker app is designed to help users manage their finances by track
 ```
 Install dependencies:
 ```python
--pip install -r requirements.txt
+pip install -r requirements.txt
 ```
 ## Usage
 Run migrations to set up the database:
